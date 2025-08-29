@@ -1,0 +1,23 @@
+# Создаем заново без buildable
+nx g @nx/angular:lib shared/ui --standalone
+nx g @nx/angular:lib shared/data-access
+nx g @nx/angular:lib shared/utils
+nx g @nx/angular:lib shared/models
+nx g @nx/angular:lib shared/guards
+nx g @nx/angular:lib shared/pipes
+
+# Customer библиотеки
+nx g @nx/angular:lib customer/feature-menu --routing --lazy --standalone
+nx g @nx/angular:lib customer/feature-cart --routing --lazy --standalone
+nx g @nx/angular:lib customer/feature-profile --routing --lazy --standalone
+nx g @nx/angular:lib customer/feature-orders --routing --lazy --standalone
+nx g @nx/angular:lib customer/data-access
+nx g @nx/angular:lib customer/ui
+
+# Admin библиотеки
+nx g @nx/angular:lib admin/feature-dashboard --routing --lazy --standalone
+nx g @nx/angular:lib admin/feature-orders --routing --lazy --standalone
+nx g @nx/angular:lib admin/feature-menu --routing --lazy --standalone
+nx g @nx/angular:lib admin/feature-users --routing --lazy --standalone
+nx g @nx/angular:lib admin/data-access
+nx g @nx/angular:lib admin/ui

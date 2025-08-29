@@ -1,0 +1,17 @@
+# API feature библиотеки
+nx g @nx/node:lib api/feature-auth
+nx g @nx/node:lib api/feature-users
+nx g @nx/node:lib api/feature-restaurants
+nx g @nx/node:lib api/feature-menu
+nx g @nx/node:lib api/feature-orders
+nx g @nx/node:lib api/feature-payments
+nx g @nx/node:lib api/feature-promo
+nx g @nx/node:lib api/feature-notifications
+nx g @nx/node:lib api/feature-telegram
+
+# API вспомогательные библиотеки
+nx g @nx/node:lib api/data-access
+nx g @nx/node:lib api/utils
+nx g @nx/node:lib api/models
+nx g @nx/node:lib api/middleware
+nx g @nx/node:lib api/config

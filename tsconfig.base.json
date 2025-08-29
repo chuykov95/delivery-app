@@ -1,0 +1,33 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"rootDir": ".",
+		"sourceMap": true,
+		"declaration": false,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
+		"target": "es2015",
+		"module": "esnext",
+		"lib": ["es2020", "dom"],
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"baseUrl": ".",
+		"paths": {
+			"@delivery-app/data-access": ["libs/shared/data-access/src/index.ts"],
+			"@delivery-app/feature-auth": ["libs/customer/feature-auth/src/index.ts"],
+			"@delivery-app/feature-cart": ["libs/customer/feature-cart/src/index.ts"],
+			"@delivery-app/feature-dashboard": ["libs/admin/feature-dashboard/src/index.ts"],
+			"@delivery-app/feature-menu": ["libs/customer/feature-menu/src/index.ts"],
+			"@delivery-app/feature-orders": ["libs/customer/feature-orders/src/index.ts"],
+			"@delivery-app/feature-profile": ["libs/customer/feature-profile/src/index.ts"],
+			"@delivery-app/guards": ["libs/shared/guards/src/index.ts"],
+			"@delivery-app/models": ["libs/shared/models/src/index.ts"],
+			"@delivery-app/pipes": ["libs/shared/pipes/src/index.ts"],
+			"@delivery-app/ui": ["libs/shared/ui/src/index.ts"],
+			"@delivery-app/utils": ["libs/shared/utils/src/index.ts"]
+		}
+	},
+	"exclude": ["node_modules", "tmp"]
+}

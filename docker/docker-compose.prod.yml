@@ -1,0 +1,106 @@
+version: '3.9'
+
+services:
+  # API Service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: delivery-api
+    restart: unless-stopped
+    ports:
+      - '3333:3333'
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: ${MONGODB_URI}
+      REDIS_URL: ${REDIS_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - delivery-network
+
+  # Customer App
+  customer-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.customer
+    container_name: delivery-customer
+    restart: unless-stopped
+    ports:
+      - '4200:80'
+    depends_on:
+      - api
+    networks:
+      - delivery-network
+
+  # Admin App
+  admin-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.admin
+    container_name: delivery-admin
+    restart: unless-stopped
+    ports:
+      - '4201:80'
+    depends_on:
+      - api
+    networks:
+      - delivery-network
+
+  # Restaurant App
+  restaurant-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.restaurant
+    container_name: delivery-restaurant
+    restart: unless-stopped
+    ports:
+      - '4202:80'
+    depends_on:
+      - api
+    networks:
+      - delivery-network
+
+  # MongoDB
+  mongodb:
+    image: mongo:7.0
+    container_name: delivery-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - delivery-network
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: delivery-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    networks:
+      - delivery-network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: delivery-nginx
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./docker/nginx/prod.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - api
+      - customer-app
+      - admin-app
+      - restaurant-app
