@@ -2,7 +2,17 @@
 	"name": "@delivery-app/source",
 	"version": "0.0.0",
 	"license": "MIT",
-	"scripts": {},
+	"scripts": {
+		"start:customer": "nx serve customer-app",
+		"start:admin": "nx serve admin-app",
+		"start:restaurant": "nx serve restaurant-app",
+		"start:api": "nx serve api",
+		"start:all": "nx run-many --target=serve --projects=customer-app,admin-app,api --parallel=3",
+		"build:all": "nx run-many --target=build --all --parallel=3",
+		"lint:all": "nx run-many --target=lint --all --parallel=3",
+		"docker:dev": "docker-compose -f docker-compose.dev.yml up -d",
+		"docker:dev:down": "docker-compose -f docker-compose.dev.yml down"
+	},
 	"private": true,
 	"dependencies": {
 		"@angular-devkit/build-angular": "~20.1.0",
